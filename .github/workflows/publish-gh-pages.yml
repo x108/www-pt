@@ -1,0 +1,26 @@
+name: Publish GitHub Pages
+on:
+  workflow_dispatch:
+    inputs:
+      artifact-url:
+        required: true
+      gh-token:
+        required: true
+concurrency: 1
+jobs:
+  publish-gh-pages:
+    permissions:
+      id-token: write
+      pages: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/actions
+          ref: main
+          token: ${{ inputs.gh-token }}
+          path: ./actions
+      - uses: ./actions/publish-gh-pages
+        with:
+          artifact-url: ${{ inputs.artifact-url }}
+          gh-token: ${{ inputs.gh-token }}
