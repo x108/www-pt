@@ -10,7 +10,6 @@ concurrency: 1
 jobs:
   publish-gh-pages:
     permissions:
-      contents: read
       id-token: write
       pages: write
     runs-on: ubuntu-latest
@@ -19,7 +18,7 @@ jobs:
         with:
           repository: ${{ github.repository_owner }}/actions
           ref: main
-          token: ${{ inputs.gh-token }}
+          ssh-key: ${{ secrets.ACTIONS_REPO_SSH_KEY }}
           path: ./actions
       - uses: ./actions/publish-gh-pages
         with:
