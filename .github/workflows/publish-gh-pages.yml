@@ -10,6 +10,7 @@ concurrency: 1
 jobs:
   publish-gh-pages:
     permissions:
+      actions: write # todo: test...
       id-token: write
       pages: write
     runs-on: ubuntu-latest
